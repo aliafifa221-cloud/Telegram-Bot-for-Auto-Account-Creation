@@ -52,9 +52,22 @@ Automated Telegram bot that creates player accounts on https://agents.ichancy.co
 
 ### Starting the Bot
 
+**Standard:**
 ```bash
 python bot.py
 ```
+
+**Docker:**
+```bash
+docker-compose up -d
+```
+
+**Linux Service:**
+```bash
+sudo systemctl start telegram-bot
+```
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment options.
 
 ### Telegram Commands
 
@@ -197,12 +210,19 @@ logging.basicConfig(level=logging.DEBUG)
 
 This project is provided as-is for educational and automation purposes.
 
+## 📚 Documentation
+
+- **[QUICKSTART.md](QUICKSTART.md)** - Get started in 5 minutes
+- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Solutions to common issues
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Production deployment guide
+
 ## 📧 Support
 
 For issues, questions, or suggestions:
-1. Open an issue on GitHub
-2. Provide detailed logs and error messages
-3. Include steps to reproduce the problem
+1. Check [TROUBLESHOOTING.md](TROUBLESHOOTING.md) first
+2. Open an issue on GitHub
+3. Provide detailed logs and error messages
+4. Include steps to reproduce the problem
 
 ## ⚠️ Disclaimer
 

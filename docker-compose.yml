@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  telegram-bot:
+    build: .
+    container_name: telegram-account-creator-bot
+    restart: unless-stopped
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - DASHBOARD_URL=${DASHBOARD_URL:-https://agents.ichancy.com/dashboard}
+      - DASHBOARD_USERNAME=${DASHBOARD_USERNAME}
+      - DASHBOARD_PASSWORD=${DASHBOARD_PASSWORD}
+      - PARENT_VALUE=${PARENT_VALUE:-2565525-quick-ad1@ichancy.nsp}
+      - HEADLESS=${HEADLESS:-true}
+      - TIMEOUT=${TIMEOUT:-30}
+      - BROWSER_ENGINE=${BROWSER_ENGINE:-selenium}
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+    # Optional: Add host network mode if you need specific network access
+    # network_mode: host
+    
+    # Security options
+    security_opt:
+      - seccomp:unconfined
+    
+    # Resource limits (adjust as needed)
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
