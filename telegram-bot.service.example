@@ -1,0 +1,35 @@
+# Systemd service file for Telegram Bot
+# Copy this file to /etc/systemd/system/telegram-bot.service
+# 
+# Usage:
+#   sudo cp telegram-bot.service.example /etc/systemd/system/telegram-bot.service
+#   sudo nano /etc/systemd/system/telegram-bot.service  # Edit paths
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable telegram-bot
+#   sudo systemctl start telegram-bot
+#   sudo systemctl status telegram-bot
+
+[Unit]
+Description=Telegram Bot for Auto Account Creation
+After=network.target
+
+[Service]
+Type=simple
+User=your_username
+WorkingDirectory=/path/to/Telegram-Bot-for-Auto-Account-Creation
+ExecStart=/usr/bin/python3 /path/to/Telegram-Bot-for-Auto-Account-Creation/bot.py
+Restart=always
+RestartSec=10
+
+# Environment variables (or use .env file)
+# Environment="TELEGRAM_BOT_TOKEN=your_token"
+# Environment="DASHBOARD_USERNAME=your_username"
+# Environment="DASHBOARD_PASSWORD=your_password"
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=telegram-bot
+
+[Install]
+WantedBy=multi-user.target
