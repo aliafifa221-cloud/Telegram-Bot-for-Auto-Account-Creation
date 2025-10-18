@@ -15,6 +15,7 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 from dotenv import load_dotenv
 
 from automation import AccountCreator
+from automation_playwright import AccountCreatorPlaywright
 
 # Load environment variables
 load_dotenv()
@@ -92,15 +93,24 @@ async def create_account(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     )
 
     try:
-        # Create account creator instance
-        creator = AccountCreator(
-            dashboard_url=os.getenv('DASHBOARD_URL', 'https://agents.ichancy.com/dashboard'),
-            dashboard_username=os.getenv('DASHBOARD_USERNAME'),
-            dashboard_password=os.getenv('DASHBOARD_PASSWORD'),
-            parent_value=os.getenv('PARENT_VALUE', '2565525-quick-ad1@ichancy.nsp'),
-            headless=os.getenv('HEADLESS', 'true').lower() == 'true',
-            timeout=int(os.getenv('TIMEOUT', '30'))
-        )
+        # Choose browser engine
+        browser_engine = os.getenv('BROWSER_ENGINE', 'selenium').lower()
+        
+        # Common parameters
+        creator_params = {
+            'dashboard_url': os.getenv('DASHBOARD_URL', 'https://agents.ichancy.com/dashboard'),
+            'dashboard_username': os.getenv('DASHBOARD_USERNAME'),
+            'dashboard_password': os.getenv('DASHBOARD_PASSWORD'),
+            'parent_value': os.getenv('PARENT_VALUE', '2565525-quick-ad1@ichancy.nsp'),
+            'headless': os.getenv('HEADLESS', 'true').lower() == 'true',
+            'timeout': int(os.getenv('TIMEOUT', '30'))
+        }
+        
+        # Create account creator instance based on engine choice
+        if browser_engine == 'playwright':
+            creator = AccountCreatorPlaywright(**creator_params)
+        else:
+            creator = AccountCreator(**creator_params)
 
         # Create the account
         result = await asyncio.to_thread(
