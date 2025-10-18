@@ -6,7 +6,7 @@
 ┌─────────────────────────────────────────────────────────────────┐
 │                         Telegram User                            │
 └───────────────────────────┬─────────────────────────────────────┘
-                            │ /create 791234567 username123 pass123
+                            │ /create [mobile] [username] [password]
                             ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                    Telegram Bot API                              │
@@ -153,7 +153,7 @@
 ```
 1. User Input
    ↓
-2. Command Parsing (/create mobile username password)
+2. Command Parsing (/create [mobile] [username] [password])
    ↓
 3. Input Validation
    - Mobile: digits only, min 7 chars
@@ -161,7 +161,8 @@
    - Password: min 6 chars
    ↓
 4. Email Generation
-   - Format: username_timestamp_random@temp.mail
+   - Format: {username}_{timestamp}_{random}@temp.mail
+   - Example: user123_20231215120530_ab3d@temp.mail
    ↓
 5. Browser Automation
    a. Setup browser (anti-detection)
@@ -332,7 +333,7 @@ python bot.py
 # Test automation directly
 from automation import AccountCreator
 creator = AccountCreator(...)
-result = creator.create_account('791234567', 'testuser', 'pass123')
+result = creator.create_account('MOBILE_NUMBER', 'USERNAME', 'PASSWORD')
 print(result)
 ```
 
